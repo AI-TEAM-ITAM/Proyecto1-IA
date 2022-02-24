@@ -1,6 +1,5 @@
-
 %Suma de polinomios 
-poly_sum(Ms,[],Ms) :- %Recibe una lista y una lista vacía 
+poly_suma(Ms,[],Ms) :- %Recibe una lista y una lista vacía 
 	Ms = [_|_]. %Regresa la lista con variables anónimas 
 
 %Llama a poly_sum
@@ -27,3 +26,5 @@ poly_prod(Ms,[N|Ns], Xs2) :-
 
 % poly_prod([1,2,3,4],[5,6,7],Xs). Posibles consultas
 % poly_prod([1,2,3,4],[-5,6,7],Xs).
+
+
