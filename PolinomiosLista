@@ -1,0 +1,20 @@
+&Jala si lo hago en consultas pero no sé pq aquí no pero en escencia esto sirve
+
+%Lista de ceros	
+build(Lista, Grado)  :-
+    length(Lista, Grado),
+    maplist(=(0), Lista).
+
+%Genera la lista representante de polinomios para utilizar en operaciones 
+poly_lista(polynomial(Coef, Grado), ListaRes) :-
+	ListaCeros is build(Lista, Grado),
+	write(ListaCeros),
+	append([Coef],[ListaCeros], ListaRes),
+	write(ListaRes).
+
+/*
+	?- poly_lista(polynomial(4, 3), X). 
+  X = [4, 0, 0, 0, 0] = 4x^3
+
+	?- length(Lista, 2), maplist(=(0), Lista).
+*/
