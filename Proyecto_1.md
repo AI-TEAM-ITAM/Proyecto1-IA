@@ -1,4 +1,8 @@
-sumaPolinomios(Polinomio1,[],Polinomio1).%si no hay otro polinomio con quien sumar regresa el mismo polinomio, pero identificando la cabeza y la cola. (CASO BASE 1)
+
+# Producto de polinomios
+```prolog
+%sumaPolinomios(i,i,o)
+sumaPolinomios(Polinomio1,[],Polinomio1) :- Polinomio1 = [_|_].%si no hay otro polinomio con quien sumar regresa el mismo polinomio, pero identificando la cabeza y la cola. (CASO BASE 1)
 sumaPolinomios([],Polinomio2,Polinomio2). %si no hay otro polinomio con quien sumar, regresa el mismo polinomio. (CASO BASE 2)
 sumaPolinomios([Monomio1|Resto1], [Monomio2|Resto2], [Monomio3|Resto3]) :- %suma los elementos del polinomio con sus respectivos grados y regresa un nuevo polinomio con el resultado de la suma, además recorre la cabeza.
    Monomio3 is Monomio1+Monomio2,
@@ -14,3 +18,4 @@ multiplicaPolinomios(Polinomio1,[Monomio|Resto], Polinomio3) :- %Multiplica el p
    multiplicaPolinomios(Polinomio1,Resto, ResultadoMP), %llamada recursiva
    multiplicaCoeficientes(Polinomio1, Monomio, ResultadoMC),%llamada a multiplicaCoeficientes
    sumaPolinomios(ResultadoMC, [0.0|ResultadoMP], Polinomio3). %llamada a sumaPolinomios
+```

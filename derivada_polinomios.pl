@@ -1,14 +1,16 @@
-% deriv(Polynomial, variable, derivative)
-% dc/dx = 0
-deriv(C,X,0) :- number(C). 
-% dx/dx} = 1
-deriv(X,X,1).
-% d(cv)/dx = c(dv/dx)
-deriv(C*U,X,C*DU) :- number(C), deriv(U,X,DU).
-% d(u v)/dx = u(dv/dx) + v(du/dx)
-deriv(U*V,X,U*DV + V*DU) :- deriv(U,X,DU), deriv(V,X,DV).
-% d(u ± v)/dx = du/dx ± dv/dx
-deriv(U+V,X,DU+DV) :- deriv(U,X,DU), deriv(V,X,DV).
-deriv(U-V,X,DU-DV) :- deriv(U,X,DU), deriv(V,X,DV).
-% du^n/dx = nu^{n-1}(du/dx)
-deriv(U^+N,X,N*U^+N1*DU) :- N1 is N-1, deriv(U,X,DU).
+% Derivada de polinimios 
+gradoPolinomio([],0).
+gradoPolinomio([_|[]],0).
+gradoPolinomio([Monomio|Resto],Grado1):-
+   gradoPolinomio(Resto,Grado2),
+   Grado1 is Grado2+1.
+
+% si pensamos que el polinomio 2x^2 + 3x + 1 = [2,3,1]
+derivaPolinomio([],[]). % si recibe una lista vacia regresa una lista vacia.
+derivaPolinomio([Monomio|Resto],[Dx|Resto2]):-
+   %write('Monomio: '),write(Monomio),write(' Resto: '),write(Resto),nl,
+   gradoPolinomio([Monomio|Resto],Gr), % si tiene Resto es porque no es un monomio
+   %write(Gr),
+   Dx is Monomio*Gr,
+   %write("Derivada: "),write(Dx),
+   derivaPolinomio(Resto,Resto2). %ahora resto es el monomio
