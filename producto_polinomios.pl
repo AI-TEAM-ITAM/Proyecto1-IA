@@ -1,30 +1,16 @@
-%Suma de polinomios 
-poly_suma(Ms,[],Ms) :- %Recibe una lista y una lista vacía 
-	Ms = [_|_]. %Regresa la lista con variables anónimas 
+sumaPolinomios(Polinomio1,[],Polinomio1) :- Polinomio1 = [|].%si no hay otro polinomio con quien sumar regresa el mismo polinomio, pero identificando la cabeza y la cola. (CASO BASE 1)
+sumaPolinomios([],Polinomio2,Polinomio2). %si no hay otro polinomio con quien sumar, regresa el mismo polinomio. (CASO BASE 2)
+sumaPolinomios([Monomio1|Resto1], [Monomio2|Resto2], [Monomio3|Resto3]) :- %suma los elementos del polinomio con sus respectivos grados y regresa un nuevo polinomio con el resultado de la suma, además recorre la cabeza.
+   Monomio3 is Monomio1+Monomio2,
+   sumaPolinomios(Resto1, Resto2, Resto3). %aquí recorre la cabeza (Llamada recursiva).
 
-%Llama a poly_sum
-poly_sum([],Ns,Ns). 
+multiplicaCoeficientes([],Cociente2,[]).
+multiplicaCoeficientes([Coefiente1|Resto], Coeficiente2, [NuevoCoeficiente|Resto3]) :- %multiplica los coeficientes de los polinomios
+   NuevoCoeficiente is Coefiente1*Coeficiente2,
+   multiplicaCoeficientes(Resto, Coeficiente2, Resto3). %Recorre la cabeza del primer polinomio para que se multiplique con cada coeficiente del segundo
 
-poly_sum([M|Ms], [N|Ns], [S|Ss]) :-
-   S is M+N,
-   poly_sum(Ms, Ns, Ss).
-
-
-scal_prod([],_Sc,[]).
-
-scal_prod([M|Ms], Sc, [P|Ps]) :-
-   P is M*Sc,
-   scal_prod(Ms, Sc, Ps).
-
- 
-poly_prod(_,[],[]).
-
-poly_prod(Ms,[N|Ns], Xs2) :-
-   poly_prod(Ms,Ns, Xs1),
-   scal_prod(Ms, N, Ps),
-    poly_sum(Ps, [0.0|Xs1], Xs2).
-
-% poly_prod([1,2,3,4],[5,6,7],Xs). Posibles consultas
-% poly_prod([1,2,3,4],[-5,6,7],Xs).
-
-
+multiplicaPolinomios(,[],[]). %No importa cual sea el primer polinomio, sino tiene con que multiplicar regresa una lista vacia. (CASO BASE 1)
+multiplicaPolinomios(Polinomio1,[Monomio|Resto], Polinomio3) :- %Multiplica el primer polinomio con el segundo, pero el segundo recorre la cabeza (primer elemento del polinomio) y regresa un nuevo polinomio resultado de la multiplicación
+   multiplicaPolinomios(Polinomio1,Resto, ResultadoMP), %llamada recursiva
+   multiplicaCoeficientes(Polinomio1, Monomio, ResultadoMC),%llamada a multiplicaCoeficientes
+   sumaPolinomios(ResultadoMC, [0.0|ResultadoMP], Polinomio3). %llamada a sumaPolinomios
