@@ -1,1 +1,1 @@
-write("hola").
+write("adios").
