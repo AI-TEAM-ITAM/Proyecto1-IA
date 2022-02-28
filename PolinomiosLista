@@ -2,14 +2,14 @@
 
 %Lista de ceros	
 build(Lista, Grado)  :-
-    length(Lista, Grado),
-    maplist(=(0), Lista).
+    length(Lista, Grado), %Genera una lista con largo "Grado"
+    maplist(=(0), Lista). %Cambia todos los elementos de la lista a "0"
 
 %Genera la lista representante de polinomios para utilizar en operaciones 
 poly_lista(polynomial(Coef, Grado), ListaRes) :-
 	ListaCeros is build(Lista, Grado),
 	write(ListaCeros),
-	append([Coef],[ListaCeros], ListaRes),
+	append([Coef],[ListaCeros], ListaRes), %Pone como cabeza el coeficiente
 	write(ListaRes).
 
 /*
